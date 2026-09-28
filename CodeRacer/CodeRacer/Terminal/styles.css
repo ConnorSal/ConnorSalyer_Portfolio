@@ -1,0 +1,241 @@
+* 
+{
+    box-sizing: border-box;
+}
+
+@import url(fonts.googleapis.com/css2?family=Press+Start+2P&display=swap);
+
+body, .quote-input, .overlay {
+  font-family: 'Press Start 2P', monospace;
+  color: #00ff66;
+  text-shadow: 0 0 8px #00ff66;
+}
+
+#crt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+ background: repeating-linear-gradient(
+  0deg,
+  rgba(0, 255, 0, 0.021) 0px,
+  rgba(0, 255, 0, 0.075) 8px,
+  rgba(0, 255, 0, 0.048) 16px,
+  transparent 32px
+);
+
+  animation: flicker .2s infinite;
+}
+
+@keyframes flicker {
+  0%, 60% { opacity: 1; }
+  50% { opacity: 0.97; }
+}
+
+#scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 0, 0.07) 0px,
+    rgba(0, 255, 0, 0.07) 12px,
+    transparent 24px,
+    transparent 36px
+  );
+  animation: scanMove 20s linear infinite;
+  mix-blend-mode: overlay;
+}
+
+@keyframes scanMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color:#07130d
+}
+
+body, .quote-input
+{
+    font-family:'Press Start 2P'
+}
+
+.container
+{
+  background: radial-gradient(ellipse at center, #001a00 0%, #000 80%);
+  border: 2px solid #00ff40;
+  box-shadow: 0 0 20px #00ff40;
+  border-radius: 8px;
+  font-family: 'Press Start 2P';
+  padding: 1rem;
+  width: 700px;
+  max-width: 90%;
+  position: relative;
+  z-index: 8; 
+}
+
+.timer
+{
+    position: absolute;
+    top: 2rem;
+    font-size: 3rem;
+    color:#00ff40;
+    z-index: 8;
+    font-weight: bold;
+    font-family: 'Press Start 2P'
+}
+
+.quote-display
+{
+    margin-bottom: 1.5rem;
+    margin-left: calc(1rem + 2px);
+    margin-right: calc(1rem + 2px);
+}
+
+.quote-input
+{
+    background-color:transparent;
+    border:2px solid #192903;
+    outline: none;
+    width: 100%;
+    height: 8rem;
+    margin: auto;
+    resize: none;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .5rem;
+}
+.quote-input:focus
+{
+    border-color:rgb(8, 163, 8);
+}
+
+.correct 
+{
+  color: #00ff40; /*correct color*/
+}
+
+.incorrect
+{
+  color: #ff003c; /*incorrect color*/
+  text-decoration: underline;
+}
+
+.wpm 
+{
+    position: absolute;
+    top: 17.5rem;
+    font-size: 2.5rem;
+    color: #00ff40;
+    z-index: 8;
+    font-weight: bold;
+    font-family: 'Press Start 2P'
+} 
+
+.overlay 
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00ff40;
+    font-size: 2rem;
+    font-family: 'Press Start 2P';
+    z-index: 10;
+    text-align: center;
+}
+
+.overlay-text 
+{
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink 
+{
+  50%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
+
+.overlay.hidden 
+{
+    display: none;
+}
+
+.best-wpm
+{
+    position: absolute;
+    top: 14rem;
+    font-size: 1.5rem;
+    color: #00ff40;
+    z-index: 8;
+    font-weight: bold;
+    font-family: 'Press Start 2P'
+}
+
+.wpmtimer
+{
+    position: absolute;
+    top: 40.5rem;
+    right: 15rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.quote-input.error 
+{
+  animation: shake 0.2s; 
+  border-color: #ff003c;
+}
+
+@keyframes shake 
+{
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.mistakes {
+  position: absolute;
+  top: 15rem;
+  right: 13rem;
+  z-index: 8;
+  font-size: 1.5rem;
+  color: #ff033e6b;
+  text-shadow: 0 0 8px #ff003cc7
+
+}
+
+.mistakes-label
+{
+  font-size: 2rem;
+  text-align: center;
+}
+
+.mistakes-value {
+  font-size: 2rem;
+  z-index: 8;
+  margin-top: 0.3rem;
+  text-shadow: 0 0 8px #ff003c;
+  text-align: center;
+}
+

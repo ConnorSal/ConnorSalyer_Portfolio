@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+<meta charset = "UTF-9">
+<Title> Connor Salyer </Title>
+<link href ="style.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="wrapper">
+
+
+    <div id="banner">
+        <a href="#top"id="bannerbutton"> <h1> Connor Salyer </h1> </a>
+        <a href="#about" id="bannerbutton"> About </a>
+        <a href="#profwork" id="bannerbutton"> Professional </a>
+        <a href="#perswork" id="bannerbutton"> Personal </a>
+        <a href="#resume" id="bannerbutton"> Resume </a>
+        <a href="#contact" id="bannerbutton"> Contact </a>
+    </div>
+
+    <div class="movie">
+        <iframe
+        src="https://www.youtube.com/embed/d5qqXLNMXVE?autoplay=1&mute=1&loop=1&playlist=d5qqXLNMXVE&controls=0&playsinline=1&rel=0&modestbranding=1"
+            title="Portfolio Trailer"
+            frameborder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <div id ="about">
+    <h2 id="abouth2"> About Me </h2>
+    <p>   
+        I'm currently a senior Game Design & Interactive Media student and a member of the nonprofit studio MonRiverGames, where I'm working on Derby. 
+        I'm also a solo developer with experience across the game development pipeline, though my main specialty is systems design.
+<br> <br>
+        I enjoy building modular systems and mechanics that can work together in different ways, while always keeping polish and the player's experience in mind. 
+        I also enjoy prototyping quickly and turning ideas into something playable as fast as possible, then refining those ideas into stable, interconnected systems.
+<br> <br>
+        My creati1ve journey actually started with video editing, which began as a hobby and eventually made me realize how much I enjoy the process of creating things. 
+        That interest led me into game development and programming, and I quickly fell in love with the combination of creativity and problem-solving that comes with making games. 
+        I've always loved games, but I became even more interested in understanding how they're built and finding ways to make my own ideas playable.
+    
+    </p>
+    </div>
+
+
+<!--Carousel Stuff-->
+<div class="carousel">
+    <div id="carouseltitle">
+        <h3> 
+            Drag Left or Right to Cycle Through
+            <br>
+            <br> 
+            Click To Open
+        </h3> 
+    </div>
+
+    <div class="slide">
+        <a href="Arcade/arcadeIndex.html"> <img src="img/ArcadeMachine.png"> </a>
+    </div>
+
+    <div class="slide">
+        <a href="CodeRacer/terminal.html"> <img src="img/CodeRacerThumb.png"> </a>
+    </div>
+
+    <div class="slide">
+        <img src="img/AtomicAcresBlankThumb.png">
+    </div>
+
+</div>
+
+
+<!--Professional Work-->    
+    <div id ="profwork">
+        <h2> Professional Work </h2>
+        <div id = "professionalprojects">
+
+            <h4> MonRiverGames </h4>
+
+            <a href="Derby.html" class="projlink"> <img src="img/DerbyThumb.png" class="profproj">
+                <p>
+                    Platformer Racing | PC | UnrealEngine <br> <br>
+                    BluePrint
+                </p>
+            </a>
+        
+        </div>
+
+    </div>
+
+<!--Personal Work-->
+    <div id ="perswork">
+
+        <h2> Personal Projects </h2>
+        <div id = "personalprojects">
+
+            <a href="SteamSmith.html" class="projlink"> <img src="img/SteamSmithThumb.png" class="persproj">
+                <p>
+                    Simulation/Action | PC | Unity <br> <br>
+                    C#
+                </p>
+            </a>
+
+            <a href="Atomic.html" class="projlink"> <img src="img/AtomicAcresThumb.png" class ="persproj">
+                <p>
+                    Farming/Action | PC/WEB | Unity <br> <br>
+                    C#
+                </p>
+            </a>
+
+            <a href="Monsters.html" class="projlink"> <img src="img/MonstersBreakfastThumb.png" class ="persproj">
+                <p>
+                    Time Management/Simulation | PC/WEB | Unity <br> <br>
+                    C#
+                </p>
+            </a>
+
+            <a href="SecDef.html" class="projlink"> <img src="img/SecurityDefenseThumb.png" class ="persproj">
+                <p>
+                    Tower Defense | PC/WEB | Unity <br> <br>
+                    C#
+                </p>
+            </a>
+
+            <a href="ThePatient.html" class="projlink"> <img src="img/ThePatientThumb.png" class ="persproj">
+                <p>
+                    Horror/Maze/Puzzle | PC/WEB | Unity <br> <br>
+                    C#
+                </p>
+            </a>
+
+            <a href="Tetris.html" class="projlink"> <img src="img/TetrisThumb.png" class ="persproj">
+                <p>
+                    Puzzle | PC | WPF <br> <br>
+                    C# / XAML
+                </p>
+            </a>
+        </div>
+
+    </div>
+
+
+    <div id ="resume">
+    <h2> Resume </h2>
+        <a href="pdf/Resume.pdf">
+        <img src="img/ResumeSS.png" id="resumepic">
+        </a>
+
+    </div>
+
+<div id ="contact">
+<h2> Contact </h2>
+
+<p>
+    Gmail - connorsal2005
+</p>
+
+<p>
+    Phone - 304-951-9121
+</p>
+
+</div>
+
+
+<footer> ©2026 Connor Salyer</footer>
+
+<script>
+
+const slides = document.querySelectorAll(".slide");
+
+let current = 0;
+
+function updateCarousel()
+{
+    const total = slides.length;
+
+    slides.forEach((slide, i) =>
+    {
+        let position = i - current;
+
+        if (position > total / 2)
+        {
+            position -= total;
+        }
+
+        if (position < -total / 2)
+        {
+            position += total;
+        }
+
+        if (position === 0)
+        {
+            slide.style.transform ="translateX(-50%) translateZ(100px) rotateY(0deg) scale(1)";
+            slide.style.opacity = "1";
+            slide.style.zIndex = "3";
+        }
+
+        else if (position === 1)
+        {
+            slide.style.transform ="translateX(20%) translateZ(-100px) rotateY(25deg) scale(0.8)";
+            slide.style.opacity = "0.7";
+            slide.style.zIndex = "2";
+        }
+
+        else if (position === -1)
+        {
+            slide.style.transform ="translateX(-120%) translateZ(-100px) rotateY(-25deg) scale(0.8)";
+            slide.style.opacity = "0.7";
+            slide.style.zIndex = "2";
+        }
+
+        else
+        {
+            slide.style.transform ="translateX(-50%) translateZ(-300px) scale(0.5)";
+            slide.style.opacity = "0";
+            slide.style.zIndex = "1";
+        }
+    });
+}
+
+updateCarousel();
+
+</script>
+
+<script>
+
+let startX = 0;
+let endX = 0;
+
+const carousel = document.querySelector(".carousel");
+
+carousel.addEventListener("pointerdown", (event) =>
+{
+    startX = event.clientX;
+});
+
+carousel.addEventListener("pointerup", (event) =>
+{
+    endX = event.clientX;
+
+    let difference = endX - startX;
+
+    if (Math.abs(difference) > 50)
+    {
+        if (difference < 0)
+        {
+            current++;
+
+            if (current >= slides.length)
+            {
+                current = 0;
+            }
+        }
+
+        else
+        {
+            current--;
+
+            if (current < 0)
+            {
+                current = slides.length - 1;
+            }
+        }
+
+        updateCarousel();
+    }
+});
+
+</script>
+
+</div>
+</body>
+
+
+</html>

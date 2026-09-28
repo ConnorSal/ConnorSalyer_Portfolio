@@ -1,0 +1,317 @@
+html
+{
+    scroll-behavior:smooth;
+    overflow-x: clip;
+}
+
+body
+{
+    overflow-x: clip;
+    background-color:#292831;
+    margin:0;
+
+    font-family:'Courier New', Courier, monospace;
+}
+
+h1
+{
+    white-space:nowrap;
+    font-size:32px;
+}
+
+h2
+{
+    color:#ee8695;
+    background-color:#333f58;
+    margin-top:0;
+    text-align:center;
+    font-size:64px;
+
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+
+    user-select: none;
+    pointer-events: none;
+}
+
+h3
+{
+    position:relative;
+    z-index:10;
+    color:#ee8695;
+    font-size:32px;
+    
+    user-select: none;
+    pointer-events: none;
+}
+
+h4
+{
+    position:relative;
+    color:#fbbbad;
+    font-size:48px;
+    margin:0px;
+    
+    user-select: none;
+    pointer-events: none;
+}
+
+p
+{
+    font-size:24px;
+    line-height:1.5;
+
+    color:#fbbbad;
+}
+
+#banner
+{
+    display:flex;
+    align-self:start;
+    justify-content:center;
+
+    position:sticky;
+    top:0;
+    z-index: 10;
+
+}
+
+#bannerbutton
+{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:500px;
+    height:50px;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    font-size:24px;
+
+    transition: font-size 0.2s ease;
+}
+#bannerbutton:hover
+{
+    font-size:28px;
+}
+
+.movie {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    margin-top:-50px;
+}
+
+.movie iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+
+
+/* About Me */
+#about
+{
+    position:relative;
+    justify-content:center;
+    text-align:center;
+    padding:10px;
+    padding-bottom:50px;
+
+    color:white;
+    background-color:#333f58;
+    z-index: 2;
+}
+#abouth2
+{
+    margin:0px;
+
+    background-color:#333f58; /* need to match the about background color */
+}
+
+
+#carouseltitle
+{
+    text-align: center;
+    margin-bottom:0px;
+    margin-top:100px;
+}
+.carousel 
+{
+    position: relative;
+
+    height: 750px;
+
+    margin: 0px auto;
+
+    perspective: 1000px;
+
+    overflow: hidden;
+
+    cursor: grab;
+}
+.carousel:active
+{
+    cursor: grabbing;
+}
+.slide 
+{
+    margin-top:300px;
+
+    position: absolute;
+
+    width: 500px;
+    height: 300px;
+
+    top: 50px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    transition: transform 0.4s ease, opacity 0.4s ease;
+
+    user-select: none;
+}
+.slide img 
+{
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    user-select: none;
+
+    cursor:pointer;
+}
+
+
+
+/* Professional Work */
+#profwork
+{
+    margin-top:50px;
+    display:grid;
+    justify-content:center;
+
+    text-align:center;
+    
+}
+#professionalprojects
+{
+    display:grid;
+
+    gap:200px;
+}
+
+/* professional classes */
+.profproj
+{
+    width:200px;
+    transition: transform 0.2s ease;
+    border: 5px solid #333f58;
+
+}
+.profproj:hover
+{
+    transform:scale(1.1);
+}
+.projlink
+{
+    color:white;
+    text-decoration: none;
+    text-align:center;
+}
+
+
+/* Personal Work */
+#perswork
+{
+    display:grid;
+    text-align:center;
+
+    justify-content: center;
+}
+#personalprojects
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
+    max-width: 1300px;
+    margin: 0 auto;
+
+    column-gap:200px;
+    row-gap:50px;
+}
+
+#steamdesc
+{
+    color:white;
+}
+
+/* personal classes */
+.persproj
+{
+    align-items:center;
+    width:300px;
+    transition: transform 0.2s ease;
+
+
+    border: 5px solid #333f58;
+}
+.persproj:hover
+{
+    transform:scale(1.1);
+}
+
+
+/* Resume */
+#resume
+{
+    display:grid;
+    justify-content:center; 
+
+    text-align:center;
+
+    margin-top:100px;
+    margin-bottom:50px;
+}
+#resumepic
+{
+    border: 10px solid #333f58;
+
+    transition: transform 0.2s ease;
+}
+#resumepic:hover
+{
+    transform:scale(1.1);
+}
+
+
+/* Contact */
+#contact
+{
+    display:grid;
+    justify-content:center;
+    margin:0;
+    margin-bottom:300px;
+
+    text-align:center;
+}
+
+
+footer
+{
+    text-align:center;
+    color:#ee8695;
+}
+
+/* Classes */
+

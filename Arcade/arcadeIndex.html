@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connor's Arcade</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preload" href="audio/hover.wav" as="audio">
+    <link rel="preload" href="audio/click.wav" as="audio">
+</head>
+
+<body>
+<div class="crt-overlay"></div>
+
+<div id="back">
+
+<a href="../index.html"> 
+  <h1>Back</h1> 
+</a>
+
+</div>
+
+<header>
+    <h1>CONNOR'S ARCADE</h1>
+</header>
+
+<main class="project-grid">
+
+
+        <!-- PONG -->
+    <a href="Pong.html" class="project-card">
+        <h2>PONG</h2>
+        <p>WinForms Classic Pong with AI paddle and scoring system.</p>
+    </a>
+
+    <!-- TETRIS -->
+    <a href="TetrisRemastered.html" class="project-card">
+        <h2>TETRIS REMASTERED</h2>
+        <p>WPF(.NET) Tetris with soundtrack, skins, shop, score, and hold block.</p>
+    </a>
+
+    <!--PAC-MAN-->
+    <a href="PacMan.html" class="project-card">
+        <h2>PAC-MAN</h2>
+        <p>WinForms Pacman recreation with working ghost AI.</p>
+    </a>
+
+    <!--PUNCH OUT-->
+    <a href="PunchOut.html" class="project-card">
+        <h2>PUNCH OUT!!</h2>
+        <p>WinForms boxing game inspired by NES classic, with enemy AI.</p>
+    </a>
+
+    <!-- Zombie Shootout -->
+    <a href="ZombieShootout.html" class="project-card">
+        <h2>ZOMBIE SHOOTOUT</h2>
+        <p>WinForms zombie shootout game with zombie AI logic.</p>
+    </a>
+
+</main>
+
+<footer>
+    <p>© 2025 Connor Salyer — All projects built by me</p>
+</footer>
+
+<script>
+    let suppressHover = false;
+
+    function playHoverSound() {
+        if (suppressHover) return;
+
+        const s = new Audio("audio/hover.wav");
+        s.volume = 0.2;
+        s.play();
+    }
+
+    function playClickSound() {
+        const s = new Audio("audio/click.wav");
+        s.volume = .99;
+        s.play();
+    }
+
+    document.querySelectorAll(".project-card").forEach(card => {
+
+        card.addEventListener("mouseenter", () => {
+            playHoverSound();
+        });
+
+        card.addEventListener("mousedown", () => {
+
+            suppressHover = true;
+        });
+
+        card.addEventListener("click", (e) => {
+            e.preventDefault();
+            playClickSound();
+
+            setTimeout(() => {
+                window.location = card.href;
+            }, 250);
+
+            setTimeout(() => {
+                suppressHover = false;
+            }, 200);
+        });
+
+    });
+</script>
+</body>
+</html>
