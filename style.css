@@ -273,7 +273,7 @@ p
 #professionalprojects
 {
     display:grid;
-    gap:200px;
+    gap:50px;
 }
 
 
@@ -348,7 +348,7 @@ p
 }
 #resumepic:hover
 {
-    transform:scale(1.1);
+    transform:scale(1.05);
     border-color: var(--arcade-yellow);
     box-shadow: 16px 16px 0 var(--neon-pink);
 }
