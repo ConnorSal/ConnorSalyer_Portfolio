@@ -373,3 +373,103 @@ footer
     color: var(--neon-pink);
     padding-bottom: 24px;
 }
+
+
+html.is-loading
+{
+    overflow: hidden;
+}
+ 
+/* Sits above the page (z 40) but below the CRT scanlines (.overlay, z 50),
+   so the scanlines show on the loading screen too */
+#loader
+{
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 24px;
+ 
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, var(--screen) 0%, var(--cabinet) 100%);
+    font-family: var(--font-pixel);
+    text-align: center;
+    cursor: pointer;
+}
+ 
+.loader-title
+{
+    font-size: clamp(18px, 4vw, 40px);
+    color: var(--arcade-yellow);
+    text-shadow: 4px 4px 0 var(--neon-pink);
+    letter-spacing: 2px;
+}
+ 
+/* Segmented bar; the segments themselves are created by loader.js */
+.loader-bar
+{
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 4px;
+ 
+    width: min(600px, 85vw);
+    padding: 6px;
+ 
+    border: 4px solid var(--neon-cyan);
+    box-shadow: 8px 8px 0 var(--neon-pink);
+    background-color: var(--cabinet);
+}
+ 
+.loader-seg
+{
+    height: 24px;
+    background-color: rgba(255, 46, 136, 0.12);
+}
+ 
+.loader-seg.on
+{
+    background-color: var(--arcade-yellow);
+}
+ 
+.loader-percent
+{
+    font-size: 16px;
+    color: var(--text);
+}
+ 
+.loader-status
+{
+    font-size: 14px;
+    color: var(--pixel-green);
+}
+ 
+/* Reuses the same blink keyframes as the "Drag to Cycle" prompt */
+.loader-status.blink
+{
+    animation: blink 1.1s steps(1, end) infinite;
+}
+ 
+/* Choppy fade-out in 5 frames, like an old game screen transition */
+#loader.loader-done
+{
+    animation: loader-out 0.5s steps(5) forwards;
+}
+ 
+@keyframes loader-out
+{
+    to
+    {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+ 
+@media (prefers-reduced-motion: reduce)
+{
+    .loader-status.blink { animation: none; }
+    #loader.loader-done  { animation-duration: 0.01s; }
+}
