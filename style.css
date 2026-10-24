@@ -15,24 +15,6 @@ body
     background-color: radial-gradient(circle at center, #05010f, #1a0c2c);
 }
 
-.overlay
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.03) 1px,
-            rgba(255, 255, 255, 0.03) 3px,
-            rgba(0, 0, 0, 0.2) 5px
-        );
-
-    z-index:-1;
-}
-
 h1
 {
     white-space:nowrap;
@@ -151,18 +133,19 @@ p
 #about
 {
     position:relative;
-    justify-content:center;
     text-align:center;
-    padding:10px;
+
     padding-bottom:50px;
 
     color:white;
     background-color:#333f58;
     z-index: 2;
+
+    padding-left:100px;
+    padding-right:100px;
 }
 #abouth2
 {
-    margin:0px;
 
     background-color:#333f58; /* need to match the about background color */
 }
@@ -235,12 +218,20 @@ p
     text-align:center;
     
 }
-#professionalprojects
+#monriver
 {
     display:grid;
 
-    gap:200px;
+    gap:50px;
+
 }
+#skeletoncloset
+{
+    display:grid;
+
+    gap:50px;
+}
+
 
 /* professional classes */
 .profproj
