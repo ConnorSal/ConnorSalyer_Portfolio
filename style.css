@@ -7,12 +7,12 @@ html
 body
 {
     overflow-x: clip;
-    background-color:#292831;
+    background-color:#111011;
     margin:0;
 
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 
-    background-color: radial-gradient(circle at center, #05010f, #1a0c2c);
+    background-image: radial-gradient(circle at center, #040416, #211e20);
 }
 
 h1
@@ -23,8 +23,8 @@ h1
 
 h2
 {
-    color:#ee8695;
-    background-color:#333f58;
+    color:#e9efec;
+    background-color:#555568;
     margin-top:0;
     text-align:center;
     font-size:64px;
@@ -40,7 +40,7 @@ h3
 {
     position:relative;
     z-index:10;
-    color:#ee8695;
+    color:#e9efec;
     font-size:48px;
     
     user-select: none;
@@ -50,7 +50,7 @@ h3
 h4
 {
     position:relative;
-    color:#fbbbad;
+    color:#e9efec;
     font-size:48px;
     margin:0px;
     
@@ -62,7 +62,7 @@ h5
 {
     position:relative;
     z-index:10;
-    color:#fbbbad;
+    color:#e9efec;
     font-size:24px;
     
     user-select: none;
@@ -74,7 +74,7 @@ p
     font-size:24px;
     line-height:1.5;
 
-    color:#fbbbad;
+    color:#e9efec;
 }
 
 #banner
@@ -138,7 +138,7 @@ p
     padding-bottom:50px;
 
     color:white;
-    background-color:#333f58;
+    background-color:#555568;
     z-index: 2;
 
     padding-left:100px;
@@ -146,8 +146,15 @@ p
 }
 #abouth2
 {
+    background-color:#555568; /* need to match the about background color */
+    margin-bottom:0px;
+}
+#abouth3
+{
+    margin-top:0px;
+    background-color:#555568; /* need to match the about background color */
 
-    background-color:#333f58; /* need to match the about background color */
+    font-size:24px;
 }
 
 
@@ -332,7 +339,7 @@ p
 footer
 {
     text-align:center;
-    color:#ee8695;
+    color:#e9efec;
 }
 
 /* Classes */
