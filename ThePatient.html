@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Patient: Case Study | Connor Salyer</title>
+    <meta name="description" content="The Patient: a Unity horror maze built around a particle-based scanner mechanic. Case study by Connor Salyer.">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="nav">
+    <div class="container">
+        <a href="index.html" class="nav-name">Connor Salyer</a>
+        <ul class="nav-links">
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="pdf/Resume.pdf">Resume</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+
+    <a href="index.html#projects" class="back-link">← Back to all projects</a>
+
+    <header class="cs-header">
+        <p class="section-label">Case Study · Level Design Project</p>
+        <h1>The Patient</h1>
+        <p class="cs-summary">
+            A dark hospital maze where the player finds their way with a scanner pulse that traces the geometry around them.
+            I designed the levels around that one mechanic. Colour-coded objects ping back when the scan reaches them,
+            and the light colour in the starting room tells the player which colour marks the correct route.
+        </p>
+
+        <dl class="cs-facts">
+            <div><dt>Role</dt><dd>Solo developer</dd></div>
+            <div><dt>Engine</dt><dd>Unity</dd></div>
+            <div><dt>Language</dt><dd>C#</dd></div>
+            <div><dt>Genre</dt><dd>Horror · Maze · Puzzle</dd></div>
+            <div><dt>Platform</dt><dd>PC / Web</dd></div>
+        </dl>
+    </header>
+
+    <div class="cs-media">
+        <!-- Best swap: a 5–8s clip of the scanner pulse sweeping a corridor -->
+        <img src="img/ThePatientThumb.png" alt="The Patient gameplay">
+    </div>
+
+    <section class="cs-section">
+        <h2>Systems I built</h2>
+
+        <article class="system">
+            <h3>Scanner pulse</h3>
+            <p>
+                The scanner is a particle system that emits a single burst of particles rendered as meshes. When the particles hit geometry,
+                they trace its surfaces, so a pulse briefly reveals the shape of the room around the player.
+                This is the game's main mechanic, and both the navigation and the level layout are built around it.
+            </p>
+        </article>
+
+        <article class="system">
+            <h3>Ping-back navigation</h3>
+            <p>
+                Guide objects placed through the maze respond when the player's scan reaches them by emitting a scanner pulse of their own,
+                in one of two distinct colours. The light in the spawn room tells the player which colour marks the correct path.
+            </p>
+            <dl>
+                <dt>Problem</dt>
+                <dd>When scanner particles collided with a ping-back object, the pulse bounced off it. The scanner then jittered in place, pushing forward and getting knocked back on every frame.</dd>
+                <dt>Explored</dt>
+                <dd>
+                    <strong>Particle trigger module:</strong> its callbacks only reach scripts on the particle system's own GameObject,
+                    so getting the hit to the target object would have needed extra reference management.<br>
+                    <strong>Expanding sphere trigger:</strong> I scaled a sphere collider with the pulse and used <code>OnTriggerEnter</code>,
+                    but this broke down because the player is always inside the sphere.
+                </dd>
+                <dt>Solution</dt>
+                <dd>
+                    I raised the collision module's dampen and lifetime-loss values, so a particle sends its collision message and then dies instead of bouncing.
+                    The maze layout makes sure a pulse never hits a ping-back object through a wall before it reaches the intended one.
+                </dd>
+                <dt>Trade-off</dt>
+                <dd>
+                    This is a workaround that relies on level design, not a general fix. I picked it on purpose because the project's scope was small and its focus was level design.
+                    In a larger project I'd route trigger events through a dedicated dispatcher script.
+                </dd>
+            </dl>
+        </article>
+    </section>
+
+    <section class="cs-section">
+        <h2>Level design</h2>
+
+        <article class="system">
+            <h3>Modular hospital kit</h3>
+            <p>
+                I chose a hospital setting to match the unsettling tone the scanner is meant for. The asset pack only had two floor variations and two wall variations,
+                so I combined them into four reusable floor groups and four reusable wall groups. That gave me enough variety to lay out distinct rooms quickly.
+            </p>
+        </article>
+
+        <article class="system">
+            <h3>Opening puzzle as tutorial</h3>
+            <p>
+                The first section teaches the mechanic before the real maze starts. It's lit well enough for the player to read the space, and it has two clearly marked paths with light-up objects.
+                The path matching the spawn-room colour drops the player into the maze. The wrong path drops them out and resets them to the start.
+            </p>
+            <!-- Did you build the reset counter at spawn? If so, add it here -->
+        </article>
+    </section>
+
+    <section class="cs-section">
+        <h2>What I learned</h2>
+        <ul>
+            <li>Unity's particle trigger callbacks only reach the particle system's own object, and it pays to know that before you plan gameplay events around them.</li>
+            <li>Sometimes the cheapest fix is in the level, not the code. The important part is to label it as a workaround, so you know when it needs replacing with a proper solution.</li>
+        </ul>
+    </section>
+
+    <div class="cs-next">
+        <a href="index.html#projects" class="btn">← All projects</a>
+        <a href="SecDef.html" class="btn btn-primary">Next: Security Defense →</a>
+    </div>
+
+</main>
+
+<footer>
+    <div class="container">© 2026 Connor Salyer</div>
+</footer>
+
+</body>
+</html>

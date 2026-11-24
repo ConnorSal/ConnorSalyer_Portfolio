@@ -73,21 +73,22 @@
 
         <div class="featured">
 
-            <!-- Derby -->
+                        <!-- Derby -->
             <a href="Derby.html" class="feature-card">
-                <img src="img/DerbyThumb.png">
+                <img src="img/DerbyThumb.png" alt="Derby gameplay screenshot">
                 <div class="feature-body">
                     <h3>Derby</h3>
                     <p class="feature-role">Lead Programmer · MonRiverGames (nonprofit studio)</p>
                     <ul class="tags">
-                        <li>Unreal Engine 5</li>
+                        <li>Unreal Engine</li>
+                        <li>Blueprints</li>
                         <li>Platformer Racer</li>
-                        <li>PC</li>
+                        <li>Controller</li>
                     </ul>
                     <ul class="highlights">
-                        <li>Main Movement Programming</li>
-                        <li>Cleaning up old project that went through the hands of multiple teams, grouping blueprints into sepeate classes to avoid merging conflicts.</li>
-                        <li>A whole lot of debugging</li>
+                        <li>Rebuilt the movement controller into vehicle style steering with an independent heading</li>
+                        <li>Moved rail grind logic out of a single large character Blueprint into a reusable component, reducing merge conflicts</li>
+                        <li>Built a collision aware chase camera and turned public playtest feedback into a "game-feel" roadmap</li>
                     </ul>
                     <span class="card-link">Read the case study →</span>
                 </div>
@@ -107,7 +108,7 @@
                     <ul class="highlights">
                         <li> Exponential force throwing mechanic and gamefeel </li>
                         <li> Main Menu system and implementation </li>
-                        <li> Code Consultation for Software Archetecture and best practices within Unity </li>
+                        <li> Code Consultation for Software Archetecture and best practices within Unity Game Engine </li>
                     </ul>
                     <span class="card-link">View on Steam ↗</span>
                 </div>
@@ -138,7 +139,7 @@
     </div>
 </section>
 
-<!-- MORE PROJECTS -->
+<!-- ================= MORE PROJECTS ================= -->
 <section id="projects">
     <div class="container">
         <p class="section-label">More Projects</p>
@@ -152,7 +153,7 @@
                     <h3>Monster's Breakfast</h3>
                     <p class="card-meta">Unity · C# · Time-management sim · 4-person team, 4 weeks</p>
                     <ul class="tags"><li>Team project</li></ul>
-                    <p class="todo">[Add: the system you owned, e.g. order queue, customer patience timers]</p>
+                    <p>Created main interaction system and was the main debugger.</p>
                 </div>
             </a>
 
@@ -161,7 +162,7 @@
                 <div class="card-body">
                     <h3>Security Defense</h3>
                     <p class="card-meta">Unity · C# · Tower defense · PC / WebGL</p>
-                    <p>Tower placement handled through a render-texture viewport, shipped as a playable WebGL build.</p>
+                    <p>A tower defense played entirely through security monitors. Clicks raycast onto a render texture and are re-cast from in-world cameras, and a crash-style betting minigame drives the economy.</p>
                 </div>
             </a>
 
@@ -170,7 +171,7 @@
                 <div class="card-body">
                     <h3>Atomic Acres</h3>
                     <p class="card-meta">Unity · C# · Farming / action · PC / Web</p>
-                    <p class="todo">[Add: one line on the key system, e.g. crop growth ticks, save/load]</p>
+                    <p>A small open world first person post apocalyptic farming game featuring pseudo tower defense mechanics at night.</p>
                 </div>
             </a>
 
@@ -179,7 +180,7 @@
                 <div class="card-body">
                     <h3>The Patient</h3>
                     <p class="card-meta">Unity · C# · Horror maze / puzzle · PC / Web</p>
-                    <p class="todo">[Add: one line, e.g. maze generation, enemy pursuit AI, puzzle state]</p>
+                    <p>A particle-based scanner that traces nearby geometry is the main navigation tool. Color coded ping objects guide the player through a hospital maze.</p>
                 </div>
             </a>
 
@@ -188,7 +189,7 @@
                 <div class="card-body">
                     <h3>Tetris (WPF)</h3>
                     <p class="card-meta">C# · XAML · WPF · Desktop</p>
-                    <p>Tetris built outside a game engine: grid state, rotation and collision, line clears, and the game loop written from scratch.</p>
+                    <p>Tetris built outside a game engine featuring a grid state, rotation and collision, line clears, and skins!.</p>
                 </div>
             </a>
 
@@ -272,7 +273,7 @@
         <div class="about">
             <div>
                 <p>
-                    I'm a senior in Game Design &amp; Interactive Media at West Virginia University, minoring in Psychology,
+                    I'm a senior in Game Design &amp; Interactive Media at West Virginia University
                     and Lead Programmer on <strong>Derby</strong> at the nonprofit studio MonRiverGames.
                 </p>
                 <p>

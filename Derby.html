@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Derby: Systems Case Study | Connor Salyer</title>
-    <meta name="description" content="Derby: an Unreal Engine platformer racer from MonRiverGames. Case study of Connor Salyer's work as Lead Programmer.">
+    <meta name="description" content="Derby: an Unreal Engine platformer racer from MonRiverGames. Connor Salyer's work as Lead Programmer: vehicle movement, camera, rail refactor and playtesting.">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -26,76 +26,188 @@
 
     <a href="index.html#work" class="back-link">← Back to all work</a>
 
-    <!--
-        HOW TO FILL THIS IN
-        Anything in yellow [brackets] is a placeholder. A recruiter skimming this page wants three things:
-          1. What did YOU own?  (not what the team made)
-          2. What was hard about it, and how did you solve it?
-          3. Proof: a GIF, a short clip, a diagram, or a small code excerpt.
-        Two or three well-explained systems beat eight one-liners.
-    -->
-
     <header class="cs-header">
         <p class="section-label">Case Study · MonRiverGames</p>
         <h1>Derby</h1>
         <p class="cs-summary">
-            A platformer racer in Unreal Engine, built by the nonprofit studio MonRiverGames.
-            As Lead Programmer, I <span class="todo">[Add: one sentence on your scope, e.g. "architected the movement and race systems and led a team of N programmers"]</span>.
+            A controller-first platformer racer with rail grinding and wall riding, built in Unreal Engine by the nonprofit studio MonRiverGames.
+            My goal was to give Derby a solid foundation: movement and camera systems that both look and feel good,
+            and a codebase several people can work in without stepping on each other.
         </p>
 
         <dl class="cs-facts">
             <div><dt>Role</dt><dd>Lead Programmer</dd></div>
-            <div><dt>Engine</dt><dd>Unreal Engine 5</dd></div>
-            <div><dt>Language</dt><dd class="todo">[Blueprints / C++]</dd></div>
-            <div><dt>Team</dt><dd class="todo">[N people]</dd></div>
-            <div><dt>Timeline</dt><dd class="todo">[Start – present]</dd></div>
+            <div><dt>Engine</dt><dd>Unreal Engine</dd></div>
+            <div><dt>Language</dt><dd>Blueprints</dd></div>
+            <div><dt>Input</dt><dd>Controller-only</dd></div>
+            <div><dt>Timeline</dt><dd>Fall 2026 – present</dd></div>
         </dl>
     </header>
 
     <div class="cs-media">
-        <!-- Replace with a gameplay clip:
-        <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID?rel=0" title="Derby gameplay" allowfullscreen></iframe>
-        -->
         <img src="img/DerbyThumb.png" alt="Derby gameplay">
     </div>
 
+    <!-- SYSTEMS -->
     <section class="cs-section">
         <h2>Systems I built</h2>
 
         <article class="system">
-            <h3 class="todo">[System name, e.g. Momentum-based movement]</h3>
-            <p class="todo">[2–3 sentences: what it does and how it's structured, e.g. components, state machine, data assets.]</p>
+            <h3>Vehicle style movement controller</h3>
+            <p>
+                The original movement felt like a standard third-person controller with a bit of drift, not like driving.
+                Because this is a racer, I wanted the movement itself to be what made Derby distinctive.
+            </p>
             <dl>
-                <dt>Problem</dt><dd class="todo">[What was hard or broken?]</dd>
-                <dt>Approach</dt><dd class="todo">[What you decided and why. Mention any trade-off you weighed.]</dd>
-                <dt>Result</dt><dd class="todo">[Measurable if possible: "cut X", "designers could tune Y without code"]</dd>
+                <dt>Problem</dt>
+                <dd>Movement followed the mouse and the character turned to face whichever way it was moving. Braking or reversing slid Derby diagonally across the screen instead of backing up.</dd>
+                <dt>Approach</dt>
+                <dd>
+                    I removed strafing so that W accelerates and S brakes or reverses. I turned off orient-to-movement and drove the movement from
+                    <code>Get Actor Forward Vector</code> instead of the control rotation, so Derby has a heading of her own.
+                    Steering feeds the X-axis input into the yaw (Z) of <code>AddActorLocalRotation</code>.
+                </dd>
+                <dt>Result</dt>
+                <dd>Derby now drives like a vehicle. Steering is something the player has to master, which adds difficulty that fits the game's theme.</dd>
+            </dl>
+            <!-- <img src="img/derby/movement-bp.png" alt="Movement Blueprint: forward vector and yaw rotation"> -->
+        </article>
+
+        <article class="system">
+            <h3>Movement prototypes</h3>
+            <p>
+                When I was asked to explore other movement styles, I pitched three: a <strong>push</strong> style that moves in bursts on repeated presses,
+                a <strong>roller-skate</strong> variant built around ramps and momentum, and an <strong>omnidirectional platformer</strong> variant.
+                I built the push prototype by setting the input action to fire once per press and driving <code>Launch Character</code> with a force multiplier.
+                Splitting steering into its own <code>IA_Rotate</code> action stopped players from having to mash to turn.
+                A teammate tracked down the final input bug that blocked that setup.
+            </p>
+            <p>
+                In internal playtests, the team chose the original driving model because it fit Derby's theme best. The prototypes did their job:
+                they settled the question with something people could play instead of an argument.
+            </p>
+        </article>
+
+        <article class="system">
+            <h3>Chase camera</h3>
+            <p>
+                During a playtest, a teammate pointed out that the camera should lock behind Derby while she's moving. I'd never noticed,
+                because as the developer I already knew how everything worked. The camera had been deciding where the player went, and I wanted the player's heading to decide where the camera went.
+            </p>
+            <dl>
+                <dt>Research first</dt>
+                <dd>Unreal has so many camera features built in that I read through the engine's camera system before writing any logic.</dd>
+                <dt>Debugging</dt>
+                <dd>
+                    Turning off <code>Use Pawn Control Rotation</code> got the camera to follow Derby's rotation, but it stopped aiming at her.
+                    I traced the Blueprint for anything else setting rotation and found redundant per-tick <code>Orient Rotation to Movement</code> toggling left over from my movement rewrite, which I removed.
+                    Restructuring the rig fixed the aim. Clipping through walls was fixed with <em>Do Collision Test</em>, the probe size, the Camera probe channel,
+                    and a missing <strong>parent socket</strong> on the camera, which was the step everything else depended on.
+                </dd>
+                <dt>Result</dt>
+                <dd>A working chase camera configured entirely through component settings, with no custom Blueprint code. Camera lag, distance, and height are next, to be agreed with the team.</dd>
             </dl>
         </article>
 
         <article class="system">
-            <h3 class="todo">[System name, e.g. Race / checkpoint manager]</h3>
-            <p class="todo">[2–3 sentences.]</p>
+            <h3>Rail system refactor</h3>
+            <p>
+                Movement, wall riding, and rail splines all lived in one Third Person Character Blueprint. It was so large it wouldn't fit on screen fully zoomed out,
+                and with several people editing it, merge conflicts were constant.
+            </p>
             <dl>
-                <dt>Problem</dt><dd class="todo">[...]</dd>
-                <dt>Approach</dt><dd class="todo">[...]</dd>
-                <dt>Result</dt><dd class="todo">[...]</dd>
+                <dt>Option A</dt>
+                <dd>A <strong>Blueprint Function Library</strong>. I ruled it out because function libraries can't hold variables, and the rail and wall-ride logic depends on state.</dd>
+                <dt>Option B ✓</dt>
+                <dd>
+                    A <strong>Blueprint component</strong> (<code>BPC_Rail</code>) attached to the character. I audited which variables the rail logic actually used,
+                    recreated them in the component, moved the nodes over, re-pointed every reference that still targeted the character, and cast to the owning character on <code>BeginPlay</code>.
+                </dd>
+                <dt>Result</dt>
+                <dd>Rail logic now lives in its own component, so it can be changed without touching the character Blueprint. This is the pattern for moving wall riding out next.</dd>
+                <dt>Open issue</dt>
+                <dd>The split made an existing bug reproduce more reliably: after jumping off a rail, Derby can render floating above the ground while her logical position is correct. It's easier to track down now that it reproduces consistently.</dd>
+            </dl>
+            <!-- <img src="img/derby/bpc-rail.png" alt="BPC_Rail component Blueprint"> -->
+        </article>
+
+        <article class="system">
+            <h3>Bug fixes &amp; input</h3>
+            <dl>
+                <dt>Rail exits</dt>
+                <dd>Rails that ended at odd angles left Derby stuck at a skewed rotation on every axis. I wrote a function, called just before each <code>Launch Character</code>, that resets her upright and keeps only her heading. This was a top-priority fix.</dd>
+                <dt>Controller</dt>
+                <dd>Wall riding had never been mapped to the gamepad, which blocked playtesting on the input we'd chosen. I mapped it, and Derby became controller-only.</dd>
+                <dt>Collectables</dt>
+                <dd>The coin collectable still ran on outdated <code>BP_Cart</code> logic. I fixed it so the game has a working collectable.</dd>
+                <dt>Cleanup</dt>
+                <dd>I removed leftover experimental nodes from the movement input graph so the next person can read it.</dd>
+            </dl>
+        </article>
+
+        <article class="system">
+            <h3>Air-spin &amp; trick groundwork <span style="color:var(--text-dim); font-weight:400; font-size:15px;">(in progress)</span></h3>
+            <p>
+                Tricks give players a reason to explore Derby's open, nonlinear spaces. As a first step, a <code>Select</code> node driven by <code>IsFalling</code>
+                swaps in a faster rotation rate while Derby is airborne. Next is detecting a full spin: while she's falling, compare this tick's yaw with last tick's,
+                add up the absolute change, and fire a trick event once the total reaches 360°.
+            </p>
+        </article>
+    </section>
+
+    <!-- LEVEL & TECH ART -->
+    <section class="cs-section">
+        <h2>Level &amp; technical art</h2>
+
+        <article class="system">
+            <h3>Demo map rework for Bit Bridge</h3>
+            <p>
+                Playtest feedback said the demo was outdated, both in how it played and how it looked. Before Bit Bridge, I rebuilt the opening around the team's plan for a subway hub.
+                I replaced every control sign with Xbox prompts, enclosed the starting area, and lit it with artificial light. I dressed it with subway props,
+                enlarged the starting platform, moved a sign that blocked the first wall ride, extended the return spline so it launches players toward that wall ride,
+                and removed the moving platforms. I'm now rebuilding the tutorial level from scratch.
+            </p>
+            <!-- <img src="img/derby/bitbridge-before-after.png" alt="Demo map before and after"> -->
+        </article>
+
+        <article class="system">
+            <h3>Material fixes</h3>
+            <dl>
+                <dt>Brick</dt>
+                <dd>Fixed aliasing and z-fighting artifacts that had been present for most of the project. The cause was the material's normal map.</dd>
+                <dt>Tile walls</dt>
+                <dd>Fixed textures stretching instead of tiling by converting texture samples into texture objects and routing them through world-aligned texture and normal nodes.</dd>
             </dl>
         </article>
     </section>
 
+    <!-- PLAYTESTING -->
     <section class="cs-section">
-        <h2>Leading the programming team</h2>
+        <h2>Playtesting</h2>
+        <p>I've demoed Derby at public events and folded what I learned straight back into the task list:</p>
         <ul>
-            <li class="todo">[e.g. Set up the project structure / naming conventions / source control workflow]</li>
-            <li class="todo">[e.g. Ran code reviews, broke features into tasks, onboarded new programmers]</li>
-            <li class="todo">[e.g. Worked with designers to expose tuning values in data assets]</li>
+            <li><strong>Retro Reload (Sept 19):</strong> showed that the controller build had no wall riding, and that players struggled with a long wall-ride section. That became the controller-input fix and the camera work.</li>
+            <li><strong>October playtest:</strong> feedback from other developers made it clear the demo was outdated, which led to the map rework.</li>
+            <li><strong>Bit Bridge:</strong> the consistent note was that Derby lacked game feel, especially a prompt showing when a wall ride is possible and how long it can last.</li>
+        </ul>
+        <p>That feedback shaped the game-feel roadmap I proposed:</p>
+        <ul>
+            <li>FOV widening and wind particles as Derby approaches top speed</li>
+            <li>Camera shake on big landings</li>
+            <li>A longer ramp up to top speed, so acceleration feels more like a vehicle</li>
+            <li>Auto-rotating and attaching to wall-rideable surfaces, plus wall-ride prompts and a duration indicator</li>
         </ul>
     </section>
 
+    <!-- REFLECTION -->
     <section class="cs-section">
         <h2>What I learned</h2>
         <ul>
-            <li class="todo">[One or two honest takeaways, technical or about leading a team]</li>
+            <li><strong>Read the engine before writing code.</strong> The camera ended up needing no custom logic at all, only the right settings.</li>
+            <li><strong>Build modular systems from the start.</strong> One large Blueprint shared by a team becomes a merge-conflict problem. Components keep each system's logic separate.</li>
+            <li><strong>Fresh eyes catch what you can't.</strong> The camera problem was obvious to a playtester and invisible to me.</li>
+            <li><strong>Keep your branch synced with main.</strong> I once had to rebuild a class period's work. It went fast because I understood what I'd built, and now I fetch before I start.</li>
+            <li><strong>Coming from Unity to Unreal:</strong> problems that are one line in C#, like swapping a value on a condition, mean finding the right node in Blueprints. I've built up that knowledge across the project.</li>
         </ul>
     </section>
 

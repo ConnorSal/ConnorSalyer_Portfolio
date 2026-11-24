@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Security Defense: Case Study | Connor Salyer</title>
+    <meta name="description" content="Security Defense: a Unity tower defense played through security monitors, with render-texture raycasting and a crash-style betting economy.">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="nav">
+    <div class="container">
+        <a href="index.html" class="nav-name">Connor Salyer</a>
+        <ul class="nav-links">
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="pdf/Resume.pdf">Resume</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+
+    <a href="index.html#projects" class="back-link">← Back to all projects</a>
+
+    <header class="cs-header">
+        <p class="section-label">Case Study · Working title "Stay"</p>
+        <h1>Security Defense</h1>
+        <p class="cs-summary">
+            A tower defense where the player never leaves the security booth. They watch the map through a bank of camera feeds,
+            place defenses by clicking through the monitors, and fund their defenses by killing enemies and betting in a crash style minigame.
+        </p>
+
+        <dl class="cs-facts">
+            <div><dt>Role</dt><dd>Solo developer</dd></div>
+            <div><dt>Engine</dt><dd>Unity</dd></div>
+            <div><dt>Language</dt><dd>C#</dd></div>
+            <div><dt>Genre</dt><dd>Tower defense</dd></div>
+            <div><dt>Platform</dt><dd>PC / WebGL</dd></div>
+        </dl>
+    </header>
+
+    <div class="cs-media">
+        <!-- Best swap: a clip of clicking a monitor and a tower appearing in the world view -->
+        <img src="img/SecurityDefenseThumb.png" alt="Security Defense gameplay">
+    </div>
+
+    <section class="cs-section">
+        <h2>Finding the concept</h2>
+        <p>
+            The game's constraint was that the player stays in one place. I kept coming back to tower defense, but scope was the main risk.
+            I wanted something small enough to finish and good enough to have a shot on Steam. Before committing, I tried several directions...
+        </p>
+        <ul>
+            <li><strong>Papers, Please-style operator sim:</strong> a repetitive task at a control panel, operating on test dummies through camera feeds. It had a strong theme but no reason for the player to be there.</li>
+            <li><strong>Upgrade sandbox:</strong> damaging the dummy earns money for new tools. Every new interaction meant new content, so it failed the scope check.</li>
+            <li><strong>Incremental tower defense:</strong> upgrading the waves instead of the towers.</li>
+        </ul>
+        <p>
+            I settled on tower defense. It fits a player who can't move, and its core loop is proven by games like <em>Bloons</em>, so the work could go into what made this version different.
+        </p>
+    </section>
+
+    <section class="cs-section">
+        <h2>Systems I built</h2>
+
+        <article class="system">
+            <h3>Camera-feed "movement"</h3>
+            <p>
+                The player moves by switching camera feeds. The cameras are stored in an array, and UI buttons each point to an index in that array to bring up that feed.
+                It's simple and data driven, adding a new viewpoint means adding a camera to the array and a button that points to it.
+            </p>
+        </article>
+
+        <article class="system">
+            <h3>Click-through-the-monitor raycasting</h3>
+            <p>
+                Towers are placed by clicking on the in game monitor, not on the world itself, so every click has to travel through two cameras.
+            </p>
+            <dl>
+                <dt>Step 1</dt>
+                <dd>A raycast from the player's camera hits the monitor surface, which displays a render texture.</dd>
+                <dt>Step 2</dt>
+                <dd>The hit is converted into a <code>Vector2</code> texture coordinate, in other words where on the screen image the player clicked.</dd>
+                <dt>Step 3</dt>
+                <dd>That coordinate is used as the origin of a second raycast fired from the security camera into the level, which finds the point in the world where the tower should go.</dd>
+            </dl>
+
+        </article>
+
+        <article class="system">
+            <h3>Crash betting economy</h3>
+            <p>
+                A plain tower defense wasn't distinctive enough, so I added a risk/reward layer. Players can earn money on an in game betting site whose first and currently only game is <em>Crash</em>:
+                they place a bet, the multiplier climbs, and they have to cash out before it crashes.
+            </p>
+            <dl>
+                <dt>Crash point</dt>
+                <dd>A hidden crash point is rolled when the bet is placed. It's loosely capped at 100×, any roll above 100× is re-rolled into the 10×–100× range, which keeps very high cash-out targets risky.</dd>
+            </dl>
+        </article>
+    </section>
+
+    <section class="cs-section">
+        <h2>What I learned</h2>
+        <ul>
+            <li>Running ideas through a scope check early kept me from committing to a content heavy design I couldn't finish.</li>
+            <li>A familiar genre lets players learn the loop instantly, so the effort can go into the twist, here it's the monitors and the betting.</li>
+        </ul>
+    </section>
+
+    <div class="cs-next">
+        <a href="index.html#projects" class="btn">← All projects</a>
+        <a href="ThePatient.html" class="btn btn-primary">Next: The Patient →</a>
+    </div>
+
+</main>
+
+<footer>
+    <div class="container">© 2026 Connor Salyer</div>
+</footer>
+
+</body>
+</html>
