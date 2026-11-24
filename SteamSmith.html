@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SteamSmith: Systems Case Study | Connor Salyer</title>
+    <meta name="description" content="SteamSmith: a solo Unity first-person sim. Case study covering its NPC AI, event-driven world clock, scene management and tooling.">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="nav">
+    <div class="container">
+        <a href="index.html" class="nav-name">Connor Salyer</a>
+        <ul class="nav-links">
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="pdf/Resume.pdf">Resume</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+
+    <a href="index.html#work" class="back-link">← Back to all work</a>
+
+    <header class="cs-header">
+        <p class="section-label">Case Study · Solo Project</p>
+        <h1>SteamSmith</h1>
+        <p class="cs-summary">
+            A first-person crafting sim built solo in Unity, with diegetic crafting, inventory, dialogue, and a
+            state machine driven tutorial. I use it as a testbed for gameplay architecture, decoupled systems,
+            composable components and tools that keep the project easy to change.
+        </p>
+
+        <dl class="cs-facts">
+            <div><dt>Role</dt><dd>Solo developer</dd></div>
+            <div><dt>Engine</dt><dd>Unity · URP</dd></div>
+            <div><dt>Language</dt><dd>C#</dd></div>
+            <div><dt>Timeline</dt><dd>Dec 2025 – present</dd></div>
+            <div><dt>Platform</dt><dd>PC</dd></div>
+        </dl>
+    </header>
+
+    <div class="cs-media">
+        <!-- Swap for a gameplay GIF or a YouTube embed when you have one -->
+        <img src="img/SteamSmithThumb.png" alt="SteamSmith gameplay">
+    </div>
+
+    <!-- ===== Systems ===== -->
+    <section class="cs-section">
+        <h2>Systems I built</h2>
+
+        <article class="system">
+            <h3>Component-based NPC AI</h3>
+            <p>
+                NPCs are built from a stack of single-purpose components (<code>NPCComponent</code> base,
+                <code>NPC</code>, <code>NPCAnimator</code>, <code>NPCRootMotion</code>) rather than one large class.
+                Behaviour is driven by <code>NPCWander</code>, a state machine with <em>Wandering</em>, <em>Waiting</em>,
+                and <em>Chasing</em> states. It picks random points inside an <code>NPCArea</code> volume and switches to chase when an enemy is detected.
+            </p>
+            <dl>
+                <dt>Problem</dt>
+                <dd>Root motion and the NavMeshAgent fought over the transform, which caused sliding and drift.</dd>
+                <dt>Decision</dt>
+                <dd>I made movement <strong>agent-authoritative</strong>: the NavMeshAgent owns position, and animation is cosmetic. A blend-tree <code>Speed</code> parameter is driven from <code>agent.desiredVelocity</code>.</dd>
+                <dt>Result</dt>
+                <dd>Pathing stays predictable, animation stays in sync, and I can add new behaviours as new components without touching locomotion.</dd>
+            </dl>
+            <!-- Optional: paste a short, real excerpt from NPCWander.cs here
+            <pre><code>// your code</code></pre>
+            -->
+        </article>
+
+        <article class="system">
+            <h3>Event-driven world clock</h3>
+            <p>
+                A <code>LightingManager</code> runs the in-game clock and broadcasts static events
+                (<code>OnHourChanged</code>, <code>OnDayEnded</code>). Shops, NPC schedules, and lighting subscribe to those events instead of polling the time each frame.
+            </p>
+            <dl>
+                <dt>Problem</dt>
+                <dd>Static events outlive scene objects, so a destroyed listener left behind a stale subscription.</dd>
+                <dt>Fix</dt>
+                <dd>A strict subscribe-in-<code>OnEnable</code> / unsubscribe-in-<code>OnDisable</code> pattern across every listener.</dd>
+            </dl>
+        </article>
+
+        <article class="system">
+            <h3>Scene &amp; lifecycle management</h3>
+            <p>
+                Scene transitions use <code>LoadSceneAsync</code> behind a persistent loading canvas. Player spawn and teleport logic is driven
+                by <code>SceneManager.sceneLoaded</code> callbacks, not by timing assumptions. A <code>GameManager</code> singleton with a
+                <code>DontDestroyOnLoad</code> guard prevents duplicate managers when a scene is reloaded.
+            </p>
+            <dl>
+                <dt>Problem</dt>
+                <dd>Persistent objects held references to scene objects (doors, spawn points) that were destroyed when the scene changed.</dd>
+                <dt>Fix</dt>
+                <dd>Persistent objects re-resolve those references in the scene-loaded callback instead of caching them across loads.</dd>
+            </dl>
+        </article>
+
+        <article class="system">
+            <h3>Gameplay mechanics</h3>
+            <p>
+                A <code>CharacterController</code>-based FPS controller with sprint, crouch, and jump. A liquid-pouring mechanic uses a
+                <code>LineRenderer</code> and detects fill through particle collisions. Doors use trigger-based interactions, and a factory minigame has its own spawner.
+            </p>
+        </article>
+    </section>
+
+    <!-- ===== Tools & performance ===== -->
+    <section class="cs-section">
+        <h2>Tooling &amp; performance</h2>
+        <article class="system">
+            <h3>Editor tooling</h3>
+            <p>
+                <code>ReplaceWithPrefab.cs</code> is an editor script that bulk-swaps scene objects for prefabs and keeps their transforms.
+                It turned hours of manual set-dressing cleanup into a single click.
+            </p>
+        </article>
+        <article class="system">
+            <h3>Rendering</h3>
+            <p>
+                I built a triplanar brick shader in Shader Graph so palette-atlas low-poly assets could be retextured without UV unwrapping.
+                I profiled SRP Batcher against GPU instancing to choose a batching strategy, and resolved URP shadow-atlas overflow caused by asset-pack lights.
+            </p>
+        </article>
+    </section>
+
+    <!-- ===== Reflection ===== -->
+    <section class="cs-section">
+        <h2>What I learned</h2>
+        <ul>
+            <li>Decide early which system owns each piece of state. Most of my bugs came from two systems both trying to own it, such as root motion against the agent, or persistent objects against scene objects.</li>
+            <li>Events keep systems decoupled, but only if listeners reliably unsubscribe.</li>
+            <li></li>
+        </ul>
+    </section>
+
+    <div class="cs-next">
+        <a href="index.html#work" class="btn">← All work</a>
+        <a href="Derby.html" class="btn btn-primary">Next →</a>
+    </div>
+
+</main>
+
+<footer>
+    <div class="container">© 2026 Connor Salyer</div>
+</footer>
+
+</body>
+</html>
