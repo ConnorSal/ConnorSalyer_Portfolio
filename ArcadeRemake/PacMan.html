@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body class="project-page pacman-page">
+
+<div class="crt-overlay"></div>
+
+<header>
+    <h1>Pac-Man</h1>
+</header>
+
+<div class="game-container play">
+    <div class="game-frame" style="max-width:1014px">
+        <canvas id="game" width="1014" height="736"></canvas>
+        <div class="game-overlay hidden" id="overlay">
+            <h2 class="overlay-title"></h2>
+            <p class="overlay-text"></p>
+            <button class="overlay-btn" type="button"></button>
+        </div>
+    </div>
+    <div class="game-hud" id="hud"></div>
+    <p class="controls">← ↑ → ↓ move</p>
+
+    <p class="desc">Pac-Man remake originally built in C# WinForms, ported to JavaScript for the browser. Ghost AI, pellet eating, wall collision, wrap-around tunnels, and round resets with a running total.</p>
+
+    <p class="back-link-wrap">
+        <a href="arcadeIndex.html" class="back-link">Back to projects</a>
+    </p>
+</div>
+
+<script src="js/arcade.js"></script>
+<script src="js/pacman.js"></script>
+</body>
+</html>

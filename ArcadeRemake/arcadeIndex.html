@@ -34,12 +34,6 @@
         <p>WinForms Classic Pong with AI paddle and scoring system.</p>
     </a>
 
-    <!-- TETRIS -->
-    <a href="TetrisRemastered.html" class="project-card">
-        <h2>TETRIS REMASTERED</h2>
-        <p>WPF(.NET) Tetris with soundtrack, skins, shop, score, and hold block.</p>
-    </a>
-
     <!--PAC-MAN-->
     <a href="PacMan.html" class="project-card">
         <h2>PAC-MAN</h2>
@@ -67,18 +61,20 @@
 <script>
     let suppressHover = false;
 
+    // play() returns a promise that rejects if the browser blocks audio; ignore that
+    function playSound(src, volume) {
+        const s = new Audio(src);
+        s.volume = volume;
+        s.play().catch(() => {});
+    }
+
     function playHoverSound() {
         if (suppressHover) return;
-
-        const s = new Audio("audio/hover.wav");
-        s.volume = 0.2;
-        s.play();
+        playSound("audio/hover.wav", 0.2);
     }
 
     function playClickSound() {
-        const s = new Audio("audio/click.wav");
-        s.volume = .99;
-        s.play();
+        playSound("audio/click.wav", 0.99);
     }
 
     document.querySelectorAll(".project-card").forEach(card => {
@@ -88,7 +84,6 @@
         });
 
         card.addEventListener("mousedown", () => {
-
             suppressHover = true;
         });
 

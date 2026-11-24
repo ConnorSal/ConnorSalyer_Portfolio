@@ -54,6 +54,7 @@ a
             rgba(0, 0, 0, 0.2) 3px
         );
     mix-blend-mode: overlay;
+    z-index: 30;
 }
 
 /* Header */
@@ -97,15 +98,6 @@ header h1 {
     box-shadow: 0 0 18px #ff66ff, inset 0 0 16px #ff0088;
     transform: scale(1.03);
 }
-
-/* Thumbnail 
-.project-card img {
-    width: 0px;
-    height: 0px;
-    object-fit: cover;
-    image-rendering: pixelated;
-    margin-top: 10px;
-} */
 
 /* Project Title */
 .project-card h2 {
@@ -189,3 +181,109 @@ footer {
     margin-top: 35px;
 }
 
+/* ─────────── PLAYABLE GAMES (browser ports) ─────────── */
+.project-page .game-container.play {
+    max-width: 1060px;
+    padding-top: 0;
+}
+
+.game-frame {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 18px;
+    border: 3px solid #ff00cc;
+    box-shadow: 0 0 14px #ff00cc, inset 0 0 10px #660040;
+    background: #000;
+    line-height: 0;
+}
+
+.game-frame canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.game-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4%;
+    padding: 4%;
+    background: rgba(5, 1, 15, 0.82);
+    line-height: 1.5;
+    z-index: 5;
+}
+
+.game-overlay.hidden {
+    display: none;
+}
+
+.game-overlay .overlay-title {
+    font-size: clamp(16px, 4.2vw, 40px);
+    color: #00eaff;
+    text-shadow: 0 0 8px #00eaff, 0 0 16px #008cff;
+}
+
+.pacman-page .game-overlay .overlay-title,
+.pacman-page .game-overlay .overlay-text {
+    color: #ffe600;
+    text-shadow: 0 0 8px #ffb800;
+}
+
+.project-page .game-overlay .overlay-text {
+    font-size: clamp(9px, 1.6vw, 16px);
+    line-height: 1.9;
+    margin: 0;
+    white-space: pre-line;
+    color: #ffb9f6;
+}
+
+.overlay-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(11px, 1.8vw, 18px);
+    min-height: 44px;
+    padding: 12px 26px;
+    background: transparent;
+    color: #ffb9f6;
+    border: 3px solid #ff00cc;
+    box-shadow: 0 0 10px #ff00cc;
+    text-shadow: 0 0 4px #ff00ff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.overlay-btn:hover,
+.overlay-btn:focus-visible {
+    box-shadow: 0 0 20px #ff66ff;
+    transform: scale(1.05);
+    outline: none;
+}
+
+.game-hud {
+    font-size: 14px;
+    color: #00eaff;
+    text-shadow: 0 0 6px #00eaff;
+    min-height: 1em;
+}
+
+.project-page p.controls {
+    font-size: 12px;
+    color: #b4a4cc;
+    margin: 14px 0 30px;
+}
+
+.project-page p.desc {
+    max-width: 750px;
+    margin-inline: auto;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+    body, .project-page { padding: 20px 12px; }
+    .project-page header h1 { font-size: 32px; }
+    .project-page p.desc { font-size: 13px; }
+}

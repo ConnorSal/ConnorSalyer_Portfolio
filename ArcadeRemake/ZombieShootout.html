@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Shootout</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body class="project-page zombie-page">
+
+<div class="crt-overlay"></div>
+
+<header>
+    <h1>ZOMBIE SHOOTOUT</h1>
+</header>
+
+<div class="game-container play">
+    <div class="game-frame" style="max-width:924px">
+        <canvas id="game" width="924" height="661"></canvas>
+        <div class="game-overlay hidden" id="overlay">
+            <h2 class="overlay-title"></h2>
+            <p class="overlay-text"></p>
+            <button class="overlay-btn" type="button"></button>
+        </div>
+    </div>
+    <div class="game-hud" id="hud"></div>
+    <p class="controls">← ↑ → ↓ move · SPACE shoot</p>
+
+    <p class="desc">Top-down zombie survival shooter from C# WinForms, ported to JavaScript. Zombies home in on you, every kill spawns another, and you have to grab ammo drops when you run dry.</p>
+
+    <p class="back-link-wrap">
+        <a href="arcadeIndex.html" class="back-link">Back to projects</a>
+    </p>
+</div>
+
+<script src="js/arcade.js"></script>
+<script src="js/zombie.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 40 560 420" width="1120" height="840">
+<title>Googie ceiling lamp</title>
+<ellipse cx="340" cy="56" rx="54" ry="10" fill="#2FB3A8"/>
+<path d="M300 56 q40 -18 80 0z" fill="#E8735A"/>
+<rect x="336" y="62" width="8" height="140" fill="#C9CDD1"/>
+<rect x="336" y="62" width="3" height="140" fill="#FFFFFF" opacity="0.5"/>
+<g fill="none" stroke-width="2.5">
+<ellipse cx="340" cy="125" rx="46" ry="14" stroke="#F6C344" transform="rotate(25 340 125)"/>
+<ellipse cx="340" cy="125" rx="46" ry="14" stroke="#E8735A" transform="rotate(-25 340 125)"/>
+<ellipse cx="340" cy="125" rx="46" ry="14" stroke="#2FB3A8" transform="rotate(90 340 125)"/>
+</g>
+<circle cx="340" cy="125" r="9" fill="#F3E6C8"/>
+<circle cx="380" cy="106" r="5" fill="#F6C344"/><circle cx="300" cy="106" r="5" fill="#E8735A"/><circle cx="340" cy="171" r="5" fill="#2FB3A8"/>
+<path d="M190 248 C 120 238, 90 214, 70 196 C 120 212, 170 226, 220 236 Z" fill="#E8735A"/>
+<path d="M490 248 C 560 238, 590 214, 610 196 C 560 212, 510 226, 460 236 Z" fill="#E8735A"/>
+<path d="M260 236 Q 340 160 420 236 Z" fill="#2FB3A8"/>
+<path d="M285 230 Q 340 178 395 230" fill="none" stroke="#7FD8CF" stroke-width="3"/>
+<ellipse cx="340" cy="242" rx="190" ry="26" fill="#F3E6C8"/>
+<ellipse cx="340" cy="238" rx="190" ry="18" fill="#FFF6E0"/>
+<g fill="#E8735A">
+<circle cx="180" cy="242" r="4"/><circle cx="230" cy="250" r="4"/><circle cx="285" cy="255" r="4"/><circle cx="340" cy="257" r="4"/><circle cx="395" cy="255" r="4"/><circle cx="450" cy="250" r="4"/><circle cx="500" cy="242" r="4"/>
+</g>
+<ellipse cx="340" cy="270" rx="120" ry="16" fill="#F6C344"/>
+<ellipse cx="340" cy="270" rx="80" ry="9" fill="#FFE9A8"/>
+<rect x="336" y="284" width="8" height="40" fill="#C9CDD1"/>
+<g stroke="#C9CDD1" stroke-width="3" stroke-linecap="round">
+<line x1="340" y1="350" x2="340" y2="440"/>
+<line x1="340" y1="350" x2="420" y2="420"/>
+<line x1="340" y1="350" x2="260" y2="420"/>
+<line x1="340" y1="350" x2="450" y2="355"/>
+<line x1="340" y1="350" x2="230" y2="355"/>
+<line x1="340" y1="350" x2="405" y2="295"/>
+<line x1="340" y1="350" x2="275" y2="295"/>
+<line x1="340" y1="350" x2="390" y2="440"/>
+<line x1="340" y1="350" x2="290" y2="440"/>
+</g>
+<circle cx="340" cy="350" r="16" fill="#2FB3A8"/>
+<circle cx="340" cy="350" r="8" fill="#F3E6C8"/>
+<circle cx="340" cy="446" r="9" fill="#FFE9A8"/>
+<circle cx="424" cy="424" r="8" fill="#F6C344"/>
+<circle cx="256" cy="424" r="8" fill="#F6C344"/>
+<circle cx="457" cy="355" r="8" fill="#FFE9A8"/>
+<circle cx="223" cy="355" r="8" fill="#FFE9A8"/>
+<circle cx="409" cy="290" r="7" fill="#E8735A"/>
+<circle cx="271" cy="290" r="7" fill="#E8735A"/>
+<circle cx="392" cy="446" r="6" fill="#E8735A"/>
+<circle cx="288" cy="446" r="6" fill="#E8735A"/>
+<g fill="#FFFFFF" opacity="0.6">
+<circle cx="337" cy="443" r="3"/><circle cx="421" cy="421" r="2.5"/><circle cx="253" cy="421" r="2.5"/><circle cx="454" cy="352" r="2.5"/><circle cx="220" cy="352" r="2.5"/>
+</g>
+</svg>
